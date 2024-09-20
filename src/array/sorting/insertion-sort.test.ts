@@ -18,14 +18,14 @@ it('should sort', () => {
 
 function sort(arr) {
     for(let i=1; i<arr.length;i++){
-        let key = arr[i] 
+        let item = arr[i] 
         let pointer = i-1
         
-        while(pointer >=0 && arr[pointer] > key){
+        while(pointer >=0 && arr[pointer] > item){
             arr[pointer+1] = arr[pointer]
             pointer--
         }
-        arr[pointer+1]=key       
+        arr[pointer+1]=item       
     }
 
     return arr
