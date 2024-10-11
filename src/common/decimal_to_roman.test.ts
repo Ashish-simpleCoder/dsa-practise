@@ -10,69 +10,105 @@ it("should pass all test for decimal to roman representation", () => {
 })
 
 
+// 2
+//  my implementation
+// function intToRoman(num: number): string {
+//   if (roman_map[num]) {
+//     return roman_map[num]
+//   }
+
+
+//   let remainder = num % 10
+//   let remaining_num = num - remainder
+
+//   let roman_rep = closestRomanRepresentationOfNum(remaining_num)
+
+//   if (roman_map[remainder]) {
+//     roman_rep += roman_map[remainder]
+//   }
+
+
+//   return roman_rep
+// }
+
+// const roman_map = {
+//   1: 'I',
+//   2: 'II',
+//   3: 'III',
+//   4: 'IV',
+//   5: 'V',
+//   6: 'VI',
+//   7: 'VII',
+//   8: 'VIII',
+//   9: 'IX',
+//   10: 'X',
+//   40: 'XL',
+//   50: 'L',
+//   90: 'XC',
+//   100: 'C',
+//   400: 'CD',
+//   500: 'D',
+//   900: 'CM',
+//   1000: 'M',
+// }
+
+// function closestRomanRepresentationOfNum(num) {
+//   if (roman_map[num]) {
+//     return roman_map[num]
+//   }
+//   let closest_roman_rep = ""
+//   let remaining_num = 0
+
+//   Object.keys(roman_map).forEach((key) => {
+//     if (key < num) {
+//       closest_roman_rep = key
+//     }
+//   })
+
+//   remaining_num = num - Number(closest_roman_rep)
+//   closest_roman_rep = roman_map[closest_roman_rep]
+
+//   if (roman_map[remaining_num]) {
+//     closest_roman_rep += roman_map[remaining_num]
+//   } else {
+//     closest_roman_rep += closestRomanRepresentationOfNum(remaining_num)
+//   }
+
+//   return closest_roman_rep
+// }
+
+// function romanizer(numbers: number[]) {
+//   const result: string[] = []
+
+
+//   for (let i = 0; i < numbers.length; i++) {
+//     let curr_num = numbers[i]
+//     result.push(intToRoman(curr_num))
+//   }
+
+
+//   return result
+// }
+
+
+
+// 3
+// another implementation from internet, much optimized and better than mine.
 function intToRoman(num: number): string {
-  if (roman_map[num]) {
-    return roman_map[num]
-  }
+  let n = [1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1]
+  let s = ["M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"]
+  let i = 0
 
-
-  let remainder = num % 10
-  let remaining_num = num - remainder
-
-  let roman_rep = closestRomanRepresentationOfNum(remaining_num)
-
-  if (roman_map[remainder]) {
-    roman_rep += roman_map[remainder]
-  }
-
-
-  return roman_rep
-}
-
-const roman_map = {
-  1: 'I',
-  2: 'II',
-  3: 'III',
-  4: 'IV',
-  5: 'V',
-  6: 'VI',
-  7: 'VII',
-  8: 'VIII',
-  9: 'IX',
-  10: 'X',
-  40: 'XL',
-  50: 'L',
-  90: 'XC',
-  100: 'C',
-  400: 'CD',
-  500: 'D',
-  900: 'CM',
-  1000: 'M',
-}
-
-function closestRomanRepresentationOfNum(num) {
-  if (roman_map[num]) {
-    return roman_map[num]
-  }
-  let closest_roman_rep = ""
-  let remaining_num = 0
-
-  Object.keys(roman_map).forEach((key) => {
-    if (key < num) {
-      closest_roman_rep = key
+  let roman_rep = ""
+  while (num > 0) {
+    if (num >= n[i]) {
+      roman_rep = roman_rep + s[i];
+      num -= n[i];
+    } else {
+      i++
     }
-  })
-
-  remaining_num = num - Number(closest_roman_rep)
-  closest_roman_rep = roman_map[closest_roman_rep]
-
-  if (roman_map[remaining_num]) {
-    closest_roman_rep += roman_map[remaining_num]
-  } else {
-    closest_roman_rep += closestRomanRepresentationOfNum(remaining_num)
   }
-
-  return closest_roman_rep
+  return roman_rep
 }
 
 function romanizer(numbers: number[]) {
@@ -88,6 +124,9 @@ function romanizer(numbers: number[]) {
   return result
 }
 
+
+
+// 1
 // old and clumsy implementation
 // function romanizer(numbers: number[]) {
 //     // Write your code here
