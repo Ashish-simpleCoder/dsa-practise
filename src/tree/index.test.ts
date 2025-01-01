@@ -46,6 +46,23 @@ export class BinarySearchTree {
         this.root = null
     }
 
+    inOrderTraverse(){
+        let result = []
+        traverse(this.root)
+
+        function traverse(node){
+            if(node != null){
+                traverse(node.left)
+                result.push(node.data)
+                traverse(node.right)
+            }
+        }
+
+        return result
+    }
+
+
+
     insert(data) {
 
         // create new node
@@ -79,5 +96,7 @@ export class BinarySearchTree {
             }
         }
     }
+
+
 }
 
