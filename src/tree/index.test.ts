@@ -76,6 +76,21 @@ export class BinarySearchTree {
         return result
     }
 
+    postOrderTraverse(){
+        let result = []
+        traverse(this.root)
+
+        function traverse(node){
+            if(node != null){
+                traverse(node.left)
+                traverse(node.right)
+                result.push(node.data)
+            }
+        }
+
+        return result
+    }
+
 
 
     insert(data) {
