@@ -23,6 +23,8 @@ it("should traverse binary-search-tree in post-order-traverse", () => {
     //  Visit the root 
 
     const result = bst.postOrderTraverse()
-    console.log(result)
+    // console.log(result)
     expect(result).toStrictEqual([1, 6, 3, 2, 40, 70, 600, 56, 30, 20, 10])
 })
+
+// https://www.cs.usfca.edu/~galles/visualization/BST.html
