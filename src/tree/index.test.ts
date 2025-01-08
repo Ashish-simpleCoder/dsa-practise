@@ -74,7 +74,7 @@ export class Tree {
             traverse(node.right)
             result.push(node.data)
         }
-
+        return result
     }
     // depth first search-----------------------------------------------end
 

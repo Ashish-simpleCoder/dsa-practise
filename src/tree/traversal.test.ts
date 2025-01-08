@@ -3,17 +3,21 @@ import { Tree } from "./index.test";
 
 describe("dfs search", () => {
 
+    const tree = new Tree()
+
+    tree.add(10)
+    tree.add(20)
+    tree.add(30)
+    tree.add(40)
+    tree.add(50)
+
     it("should in-order-traverse", () => {
-        const tree = new Tree()
-
-        tree.add(10)
-        tree.add(20)
-        tree.add(30)
-        tree.add(40)
-        tree.add(50)
-
         const result = tree.inorderTravese()
-
         expect(result).toEqual([40, 20, 50, 10, 30])
+    })
+
+    it("should in-order-traverse", () => {
+        const result = tree.preOrderTraverse()
+        expect(result).toEqual([40, 50, 20, 30, 10])
     })
 })
