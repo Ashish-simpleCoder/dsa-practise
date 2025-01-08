@@ -13,8 +13,6 @@ it("should create binary-tree", () => {
     tree.add(60)
     tree.add(70)
 
-    console.log(tree.inorderTravese())
-
 
     const root = tree.root!
     expect(root.data).toBe(10)
@@ -45,6 +43,7 @@ export class Tree {
 
     }
 
+    // depth first search-----------------------------------------------
     // inorder traversal
     // left -> root -> right
     inorderTravese() {
@@ -61,6 +60,23 @@ export class Tree {
 
         return result
     }
+
+
+    // left -> right -> root
+    preOrderTraverse() {
+        const result: number[] = []
+
+        traverse(this.root)
+
+        function traverse(node: Node | null) {
+            if (!node) return
+            traverse(node.left)
+            traverse(node.right)
+            result.push(node.data)
+        }
+
+    }
+    // depth first search-----------------------------------------------end
 
 
     // The idea is to do an iterative level order traversal of the given tree using queue. 
