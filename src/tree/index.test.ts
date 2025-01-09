@@ -24,6 +24,9 @@ it("should create binary-tree", () => {
 
     expect(root.right!.left!.data).toBe(60)
     expect(root.right!.right!.data).toBe(70)
+
+
+    expect(tree.getHeightUsingRecursion()).toBe(2)
 })
 
 
@@ -93,6 +96,35 @@ export class Tree {
         return result
     }
     // depth first search-----------------------------------------------end
+
+    // breadth first search---------------------------------------------
+
+    naiveApproach() {
+        // get the tree height   
+    }
+
+    // breadth first search---------------------------------------------end
+
+
+
+
+    // O -> n
+    // o -> h
+    // visit each node and get it's height 
+    getHeightUsingRecursion() {
+        let height = -1
+
+        if (!this.root) {
+            return height
+        }
+
+        function getHeight(node: Node | null) {
+            if (!node) return -1
+            return Math.max(getHeight(node.left), getHeight(node.right)) + 1
+        }
+
+        return Math.max(getHeight(this.root), height)
+    }
 
 
     // The idea is to do an iterative level order traversal of the given tree using queue. 
