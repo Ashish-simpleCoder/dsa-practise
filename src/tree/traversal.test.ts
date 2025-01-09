@@ -12,12 +12,20 @@ describe("dfs search", () => {
     tree.add(50)
 
     it("should in-order-traverse", () => {
+        // left -> root -> right 
         const result = tree.inorderTravese()
         expect(result).toEqual([40, 20, 50, 10, 30])
     })
 
-    it("should in-order-traverse", () => {
+    it("should pre-order-traverse", () => {
+        // root -> left -> right 
         const result = tree.preOrderTraverse()
-        expect(result).toEqual([40, 50, 20, 30, 10])
+        expect(result).toEqual([10,20,40,50,30])
+    })
+
+    it("should post-order-traverse", () => {
+        // left -> right -> root
+        const result = tree.postOrderTraverse()
+        expect(result).toEqual([40,50,20,30,10])
     })
 })

@@ -62,7 +62,7 @@ export class Tree {
     }
 
 
-    // left -> right -> root
+    // root -> left -> right 
     preOrderTraverse() {
         const result: number[] = []
 
@@ -70,10 +70,26 @@ export class Tree {
 
         function traverse(node: Node | null) {
             if (!node) return
+            result.push(node.data)
+            traverse(node.left)
+            traverse(node.right)
+        }
+        return result
+    }
+
+    // left -> right -> root
+    postOrderTraverse() {
+        const result: number[] = []
+
+        traverse(this.root)
+
+        function traverse(node: Node | null) {
+            if (!node) return null
             traverse(node.left)
             traverse(node.right)
             result.push(node.data)
         }
+
         return result
     }
     // depth first search-----------------------------------------------end
