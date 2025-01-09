@@ -26,7 +26,9 @@ it("should create binary-tree", () => {
     expect(root.right!.right!.data).toBe(70)
 
 
+    // height
     expect(tree.getHeightUsingRecursion()).toBe(2)
+    expect(tree.getHeightUsingLevelOrderTraversal()).toBe(2)
 })
 
 
@@ -108,6 +110,7 @@ export class Tree {
 
 
 
+    // depth-first traversal
     // O -> n
     // o -> h
     // visit each node and get it's height 
@@ -124,6 +127,35 @@ export class Tree {
         }
 
         return Math.max(getHeight(this.root), height)
+    }
+
+    // level-order traversal (breadth first search)
+    // O -> n
+    // o -> n
+    getHeightUsingLevelOrderTraversal() {
+        let height = -1
+
+        if (!this.root) {
+            return height
+        }
+        const queue: (Node | null)[] = [this.root]
+        queue.push(null)
+
+        while (queue.length > 0) {
+            const removed_node = queue.shift()
+
+            if (removed_node === null) {
+                height++
+
+                if (queue.length > 0) {
+                    queue.push(null)
+                }
+            } else {
+                if (removed_node?.left) queue.push(removed_node.left)
+                if (removed_node?.right) queue.push(removed_node.right)
+            }
+        }
+        return height
     }
 
 
