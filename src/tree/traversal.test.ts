@@ -11,6 +11,7 @@ describe("dfs search", () => {
     tree.add(40)
     tree.add(50)
 
+
     it("should in-order-traverse", () => {
         // left -> root -> right 
         const result = tree.inorderTravese()
@@ -27,5 +28,20 @@ describe("dfs search", () => {
         // left -> right -> root
         const result = tree.postOrderTraverse()
         expect(result).toEqual([40,50,20,30,10])
+    })
+})
+
+// Level Order Traversal
+describe("bfs search", () =>{
+
+    const tree = new Tree()
+    tree.add(10)
+    
+    tree.add(20)
+    tree.add(30)
+    tree.add(40)
+
+    it("dfs search",()=>{
+        console.log(tree.getHeightUsingRecursion())
     })
 })
