@@ -40,8 +40,14 @@ describe("bfs search", () =>{
     tree.add(20)
     tree.add(30)
     tree.add(40)
+    tree.add(50)
+    tree.add(60)
+    tree.add(70)
+    tree.add(80)
+    tree.add(90)
+    tree.add(100)
 
-    it("dfs search",()=>{
-        console.log(tree.getHeightUsingRecursion())
+    it("bfs search",()=>{
+        expect(tree.queueApproach()).toEqual([10,20,30,40,50,60,70,80,90,100])
     })
 })

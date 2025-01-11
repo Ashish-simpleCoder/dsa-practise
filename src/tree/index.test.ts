@@ -105,6 +105,37 @@ export class Tree {
         // get the tree height   
     }
 
+    // enqueue and dequeue
+    queueApproach(){
+
+
+        const queue: Node[] = []
+        const result:number[] = []
+
+        if(!this.root){
+            return 
+        }
+
+        queue.push(this.root)
+
+        while(queue.length > 0){
+            const currentNode = queue.shift()
+
+            if(!currentNode) return
+
+            result.push(currentNode.data)
+
+            if(currentNode.left){
+                queue.push(currentNode.left)
+            }
+            if(currentNode.right){
+                queue.push(currentNode.right)
+            }
+        }
+
+        return result
+    }
+
     // breadth first search---------------------------------------------end
 
 
