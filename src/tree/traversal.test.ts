@@ -21,22 +21,22 @@ describe("dfs search", () => {
     it("should pre-order-traverse", () => {
         // root -> left -> right 
         const result = tree.preOrderTraverse()
-        expect(result).toEqual([10,20,40,50,30])
+        expect(result).toEqual([10, 20, 40, 50, 30])
     })
 
     it("should post-order-traverse", () => {
         // left -> right -> root
         const result = tree.postOrderTraverse()
-        expect(result).toEqual([40,50,20,30,10])
+        expect(result).toEqual([40, 50, 20, 30, 10])
     })
 })
 
 // Level Order Traversal
-describe("bfs search", () =>{
+describe("bfs search", () => {
 
     const tree = new Tree()
     tree.add(10)
-    
+
     tree.add(20)
     tree.add(30)
     tree.add(40)
@@ -47,7 +47,11 @@ describe("bfs search", () =>{
     tree.add(90)
     tree.add(100)
 
-    it("bfs search",()=>{
-        expect(tree.queueApproach()).toEqual([10,20,30,40,50,60,70,80,90,100])
+    it("traverse with queue approach", () => {
+        expect(tree.queueApproach()).toEqual([10, 20, 30, 40, 50, 60, 70, 80, 90, 100])
+    })
+
+    it("traverse with height and recursion approach", () => {
+        expect(tree.naiveApproach()).toEqual([10, 20, 30, 40, 50, 60, 70, 80, 90, 100])
     })
 })

@@ -27,8 +27,8 @@ it("should create binary-tree", () => {
 
 
     // height
-    expect(tree.getHeightUsingRecursion()).toBe(2)
-    expect(tree.getHeightUsingLevelOrderTraversal()).toBe(2)
+    expect(tree.getHeightUsingRecursion()).toBe(3)
+    expect(tree.getHeightUsingLevelOrderTraversal()).toBe(3)
 })
 
 
@@ -102,33 +102,54 @@ export class Tree {
     // breadth first search---------------------------------------------
 
     naiveApproach() {
-        // get the tree height   
+        // get the tree height  
+        // and iterate over all nodes with same level of height  
+        const result: number[] = []
+        const treeHeight = this.getHeightUsingRecursion()
+
+        for (let i = 1; i <= treeHeight; i++) {
+            getLevelNode(this.root, i)
+        }
+
+
+        function getLevelNode(node: Node | null, level: number) {
+            if (!node) return
+            // means we have reached to current iterating level
+            if (level == 1) {
+                result.push(node.data)
+            } else if (level > 1) {
+                getLevelNode(node.left, level - 1)
+                getLevelNode(node.right, level - 1)
+            }
+        }
+
+        return result
     }
 
     // enqueue and dequeue
-    queueApproach(){
+    queueApproach() {
 
 
         const queue: Node[] = []
-        const result:number[] = []
+        const result: number[] = []
 
-        if(!this.root){
-            return 
+        if (!this.root) {
+            return
         }
 
         queue.push(this.root)
 
-        while(queue.length > 0){
+        while (queue.length > 0) {
             const currentNode = queue.shift()
 
-            if(!currentNode) return
+            if (!currentNode) return
 
             result.push(currentNode.data)
 
-            if(currentNode.left){
+            if (currentNode.left) {
                 queue.push(currentNode.left)
             }
-            if(currentNode.right){
+            if (currentNode.right) {
                 queue.push(currentNode.right)
             }
         }
@@ -146,14 +167,14 @@ export class Tree {
     // o -> h
     // visit each node and get it's height 
     getHeightUsingRecursion() {
-        let height = -1
+        let height = 0
 
         if (!this.root) {
             return height
         }
 
         function getHeight(node: Node | null) {
-            if (!node) return -1
+            if (!node) return 0
             return Math.max(getHeight(node.left), getHeight(node.right)) + 1
         }
 
@@ -164,7 +185,7 @@ export class Tree {
     // O -> n
     // o -> n
     getHeightUsingLevelOrderTraversal() {
-        let height = -1
+        let height = 0
 
         if (!this.root) {
             return height
