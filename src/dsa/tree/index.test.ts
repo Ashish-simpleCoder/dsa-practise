@@ -1,6 +1,6 @@
 import { expect, it } from "vitest"
 
-it("should create binary-tree", () => {
+it("should create binary-tree with <add> method", () => {
     const tree = new Tree()
 
     tree.add(10)
