@@ -31,6 +31,37 @@ it("should create binary-tree with <add> method", () => {
     expect(tree.getHeightUsingLevelOrderTraversal()).toBe(3)
 })
 
+it("should create binary-tree with <addNodeFpl> method, a functional programming approach", () => {
+    const tree = new Tree()
+
+    tree.addNodeFpl(10)
+    tree.addNodeFpl(20)
+    tree.addNodeFpl(30)
+
+    tree.addNodeFpl(40)
+    tree.addNodeFpl(50)
+
+    tree.addNodeFpl(60)
+    tree.addNodeFpl(70)
+
+
+    const root = tree.root!
+    expect(root.data).toBe(10)
+    expect(root.left!.data).toBe(20)
+    expect(root.right!.data).toBe(30)
+
+    expect(root.left!.left!.data).toBe(40)
+    expect(root.left!.right!.data).toBe(50)
+
+    expect(root.right!.left!.data).toBe(60)
+    expect(root.right!.right!.data).toBe(70)
+
+
+    // height
+    expect(tree.getHeightUsingRecursion()).toBe(3)
+    expect(tree.getHeightUsingLevelOrderTraversal()).toBe(3)
+})
+
 
 export class Node {
     data: number
@@ -257,6 +288,36 @@ export class Tree {
         }
     }
 
+    addNodeFpl(newData, queue = [this.root]) {
+        if (!this.root) {
+            this.root = new Node(newData)
+            return
+        }
+        if (queue.length == 0) return
+
+
+        const parentNode = queue.shift()
+        if (!parentNode) return
+
+
+        if (parentNode.left) {
+            queue.push(parentNode.left)
+        } else {
+            parentNode.left = new Node(newData)
+            return
+        }
+
+
+        if (parentNode.right) {
+            queue.push(parentNode.right)
+        } else {
+            parentNode.right = new Node(newData)
+            return
+        }
+
+
+        this.addNodeFpl(newData, queue)
+    }
 
 
 }
