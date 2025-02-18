@@ -79,6 +79,26 @@ it("should create binary-tree with <addNodeFpl> method, a functional programming
     expect(tree.getHeight()).toBe(3)
 })
 
+it("should build binary tree with constructor", ()=>{
+    const t = new BT([])
+    const res = t.bfsTraversal()
+    expect(res).toEqual([])
+    expect(t.getHeight()).toBe(0)
+    
+    //
+    const t1 = new BT([1])
+    const res1 = t1.bfsTraversal()
+    expect(res1).toEqual([1])
+    expect(t1.getHeight()).toBe(1)
+    
+    //
+    const t2 = new BT([1,2,3,4,5,6])
+    const res2 = t2.bfsTraversal()
+    expect(res2).toEqual([1,2,3,4,5,6])
+    expect(t2.getHeight()).toBe(3)
+})
+
+
 class Node {
     data: number
     left: Node | null = null
@@ -92,10 +112,11 @@ class BT {
     root: Node | null = null
 
 
-    constructor() {
+    constructor(arr: any[] = []) {
+        this.buildTreeWithArray(arr)
     }
 
-    buildTreeWithArray(arr = []) {
+    buildTreeWithArray(arr: any[] = []) {
         while (arr.length > 0) {
             this.addNodeFpl(arr.shift())
         }
@@ -192,6 +213,7 @@ class BT {
 
             return this.bfsTraversal(queue, queue.shift(), result)
         }
+        return result
     }
 
 
