@@ -1,20 +1,31 @@
 import { describe, expect, it } from "vitest";
-import { Tree } from "./index.test";
+import { BT } from "./index.test";
 
 describe("dfs search", () => {
 
-    const tree = new Tree()
+    const tree = new BT()
+    expect(tree.getHeight()).toBe(0)
 
     tree.add(10)
+    expect(tree.getHeight()).toBe(1)
+
     tree.add(20)
+    expect(tree.getHeight()).toBe(2)
+
     tree.add(30)
+    expect(tree.getHeight()).toBe(2)
+
     tree.add(40)
+    expect(tree.getHeight()).toBe(3)
+
     tree.add(50)
+    expect(tree.getHeight()).toBe(3)
+
 
 
     it("should in-order-traverse", () => {
         // left -> root -> right 
-        const result = tree.inorderTravese()
+        const result = tree.inOrderTraverse()
         expect(result).toEqual([40, 20, 50, 10, 30])
     })
 
@@ -34,18 +45,44 @@ describe("dfs search", () => {
 // Level Order Traversal
 describe("bfs search", () => {
 
-    const tree = new Tree()
+    const tree = new BT()
+    expect(tree.getHeight()).toBe(0)
+
     tree.add(10)
+    expect(tree.getHeight()).toBe(1)
+
 
     tree.add(20)
+    expect(tree.getHeight()).toBe(2)
+
     tree.add(30)
+    expect(tree.getHeight()).toBe(2)
+
     tree.add(40)
+    expect(tree.getHeight()).toBe(3)
+
     tree.add(50)
+    expect(tree.getHeight()).toBe(3)
+
     tree.add(60)
+    expect(tree.getHeight()).toBe(3)
+
     tree.add(70)
+    expect(tree.getHeight()).toBe(3)
+
     tree.add(80)
+    expect(tree.getHeight()).toBe(4)
+
     tree.add(90)
+    expect(tree.getHeight()).toBe(4)
+
     tree.add(100)
+    expect(tree.getHeight()).toBe(4)
+
+
+    it("traverse with bfsTraversal fn", () => {
+        expect(tree.bfsTraversal()).toEqual([10, 20, 30, 40, 50, 60, 70, 80, 90, 100])
+    })
 
     it("traverse with queue approach", () => {
         expect(tree.queueApproach()).toEqual([10, 20, 30, 40, 50, 60, 70, 80, 90, 100])

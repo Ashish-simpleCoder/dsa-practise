@@ -79,27 +79,27 @@ it("should create binary-tree with <addNodeFpl> method, a functional programming
     expect(tree.getHeight()).toBe(3)
 })
 
-it("should build binary tree with constructor", ()=>{
+it("should build binary tree with constructor and bfsTraverse", () => {
     const t = new BT([])
     const res = t.bfsTraversal()
     expect(res).toEqual([])
     expect(t.getHeight()).toBe(0)
-    
+
     //
     const t1 = new BT([1])
     const res1 = t1.bfsTraversal()
     expect(res1).toEqual([1])
     expect(t1.getHeight()).toBe(1)
-    
+
     //
-    const t2 = new BT([1,2,3,4,5,6])
+    const t2 = new BT([6, 5, 4, 3, 2, 1])
     const res2 = t2.bfsTraversal()
-    expect(res2).toEqual([1,2,3,4,5,6])
+    expect(res2).toEqual([6, 5, 4, 3, 2, 1])
     expect(t2.getHeight()).toBe(3)
 })
 
 
-class Node {
+export class Node {
     data: number
     left: Node | null = null
     right: Node | null = null
@@ -108,7 +108,7 @@ class Node {
         this.data = data
     }
 }
-class BT {
+export class BT {
     root: Node | null = null
 
 
@@ -197,7 +197,7 @@ class BT {
 
 
 
-    // bfs / level order
+    // bfs / level order  traversal----------------------------
     bfsTraversal(queue: (Node | null)[] = [this.root], node = queue.shift(), result: number[] = []) {
         if (this.root) {
             if (!node) return result
@@ -216,8 +216,70 @@ class BT {
         return result
     }
 
+    // enqueue and dequeue
+    queueApproach() {
 
-    // dfs
+
+        const queue: Node[] = []
+        const result: number[] = []
+
+        if (!this.root) {
+            return
+        }
+
+        queue.push(this.root)
+
+        while (queue.length > 0) {
+            const currentNode = queue.shift()
+
+            if (!currentNode) return
+
+            result.push(currentNode.data)
+
+            if (currentNode.left) {
+                queue.push(currentNode.left)
+            }
+            if (currentNode.right) {
+                queue.push(currentNode.right)
+            }
+        }
+
+        return result
+    }
+
+    naiveApproach() {
+        // get the tree height  
+        // and iterate over all nodes with same level of height  
+        const result: number[] = []
+        const treeHeight = this.getHeightUsingRecursion()
+
+        for (let i = 1; i <= treeHeight; i++) {
+            getLevelNode(this.root, i)
+        }
+
+
+        function getLevelNode(node: Node | null, level: number) {
+            if (!node) return
+            // means we have reached to current iterating level
+            if (level == 1) {
+                result.push(node.data)
+            } else if (level > 1) {
+                getLevelNode(node.left, level - 1)
+                getLevelNode(node.right, level - 1)
+            }
+        }
+
+        return result
+    }
+    // bfs / level order  traversal----------------------------end
+
+
+
+
+
+
+
+    // dfs         traversal-----------------------------------
     //in-order
     // left-root-right
     inOrderTraverse(queue = [this.root], result: number[] = []) {
@@ -280,6 +342,9 @@ class BT {
         }
         return result
     }
+    // dfs         traversal-----------------------------------end
+
+
 
     // height
 
@@ -408,61 +473,61 @@ class BT {
 
 //     // breadth first search---------------------------------------------
 
-//     naiveApproach() {
-//         // get the tree height  
-//         // and iterate over all nodes with same level of height  
-//         const result: number[] = []
-//         const treeHeight = this.getHeightUsingRecursion()
+// naiveApproach() {
+//     // get the tree height
+//     // and iterate over all nodes with same level of height
+//     const result: number[] = []
+//     const treeHeight = this.getHeightUsingRecursion()
 
-//         for (let i = 1; i <= treeHeight; i++) {
-//             getLevelNode(this.root, i)
-//         }
-
-
-//         function getLevelNode(node: Node | null, level: number) {
-//             if (!node) return
-//             // means we have reached to current iterating level
-//             if (level == 1) {
-//                 result.push(node.data)
-//             } else if (level > 1) {
-//                 getLevelNode(node.left, level - 1)
-//                 getLevelNode(node.right, level - 1)
-//             }
-//         }
-
-//         return result
+//     for (let i = 1; i <= treeHeight; i++) {
+//         getLevelNode(this.root, i)
 //     }
 
-//     // enqueue and dequeue
-//     queueApproach() {
 
-
-//         const queue: Node[] = []
-//         const result: number[] = []
-
-//         if (!this.root) {
-//             return
+//     function getLevelNode(node: Node | null, level: number) {
+//         if (!node) return
+//         // means we have reached to current iterating level
+//         if (level == 1) {
+//             result.push(node.data)
+//         } else if (level > 1) {
+//             getLevelNode(node.left, level - 1)
+//             getLevelNode(node.right, level - 1)
 //         }
-
-//         queue.push(this.root)
-
-//         while (queue.length > 0) {
-//             const currentNode = queue.shift()
-
-//             if (!currentNode) return
-
-//             result.push(currentNode.data)
-
-//             if (currentNode.left) {
-//                 queue.push(currentNode.left)
-//             }
-//             if (currentNode.right) {
-//                 queue.push(currentNode.right)
-//             }
-//         }
-
-//         return result
 //     }
+
+//     return result
+// }
+
+// // enqueue and dequeue
+// queueApproach() {
+
+
+//     const queue: Node[] = []
+//     const result: number[] = []
+
+//     if (!this.root) {
+//         return
+//     }
+
+//     queue.push(this.root)
+
+//     while (queue.length > 0) {
+//         const currentNode = queue.shift()
+
+//         if (!currentNode) return
+
+//         result.push(currentNode.data)
+
+//         if (currentNode.left) {
+//             queue.push(currentNode.left)
+//         }
+//         if (currentNode.right) {
+//             queue.push(currentNode.right)
+//         }
+//     }
+
+//     return result
+// }
 
 //     // breadth first search---------------------------------------------end
 
