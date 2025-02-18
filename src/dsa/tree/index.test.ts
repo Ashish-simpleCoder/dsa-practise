@@ -2,6 +2,8 @@ import { expect, it } from "vitest"
 
 it("should create binary-tree with <add> method", () => {
     const tree = new Tree()
+    expect(tree.root).toBe(null)
+
 
     tree.add(10)
     tree.add(20)
@@ -29,9 +31,30 @@ it("should create binary-tree with <add> method", () => {
     // height
     expect(tree.getHeightUsingRecursion()).toBe(3)
     expect(tree.getHeightUsingLevelOrderTraversal()).toBe(3)
+    expect(tree.getHeight()).toBe(3)
 })
 
 it("should create binary-tree with <addNodeFpl> method, a functional programming approach", () => {
+    const t1 = new Tree()
+    expect(t1.root).toBe(null)
+    expect(t1.getHeight()).toBe(0)
+
+    t1.addNodeFpl(10)
+    expect(t1.root!.data).toBe(10)
+    expect(t1.getHeight()).toBe(1)
+
+    t1.addNodeFpl(20)
+    expect(t1.root!.left!.data).toBe(20)
+    expect(t1.getHeight()).toBe(2)
+
+    t1.addNodeFpl(30)
+    expect(t1.root!.right!.data).toBe(30)
+    expect(t1.getHeight()).toBe(2)
+
+
+
+
+    // second tree
     const tree = new Tree()
 
     tree.addNodeFpl(10)
@@ -60,6 +83,7 @@ it("should create binary-tree with <addNodeFpl> method, a functional programming
     // height
     expect(tree.getHeightUsingRecursion()).toBe(3)
     expect(tree.getHeightUsingLevelOrderTraversal()).toBe(3)
+    expect(tree.getHeight()).toBe(3)
 })
 
 
@@ -68,7 +92,7 @@ export class Node {
     left: Node | null = null
     right: Node | null = null
 
-    constructor(data) {
+    constructor(data: number) {
         this.data = data
     }
 }
@@ -212,6 +236,12 @@ export class Tree {
         return Math.max(getHeight(this.root), height)
     }
 
+    getHeight(node = this.root, currentHeight = 0) {
+        if (!node) return currentHeight
+        return Math.max(this.getHeight(node.left, currentHeight + 1), this.getHeight(node.right, currentHeight + 1))
+    }
+
+
     // level-order traversal (breadth first search)
     // O -> n
     // o -> n
@@ -288,36 +318,60 @@ export class Tree {
         }
     }
 
-    addNodeFpl(newData, queue = [this.root]) {
-        if (!this.root) {
+
+    addNodeFpl(newData, queue = [this.root], parentNode = queue.shift()) {
+        if (this.root) {
+            if (!parentNode) return
+
+            if (parentNode.left) {
+                queue.push(parentNode.left)
+            } else {
+                parentNode.left = new Node(newData)
+                return
+            }
+
+            if (parentNode.right) {
+                queue.push(parentNode.right)
+            } else {
+                parentNode.right = new Node(newData)
+                return
+            }
+
+            this.addNodeFpl(newData, queue, queue.shift())
+        } else {
             this.root = new Node(newData)
-            return
         }
-        if (queue.length == 0) return
-
-
-        const parentNode = queue.shift()
-        if (!parentNode) return
-
-
-        if (parentNode.left) {
-            queue.push(parentNode.left)
-        } else {
-            parentNode.left = new Node(newData)
-            return
-        }
-
-
-        if (parentNode.right) {
-            queue.push(parentNode.right)
-        } else {
-            parentNode.right = new Node(newData)
-            return
-        }
-
-
-        this.addNodeFpl(newData, queue)
     }
+    // addNodeFpl(newData, queue = [this.root]) {
+    //     if (!this.root) {
+    //         this.root = new Node(newData)
+    //         return
+    //     }
+    //     if (queue.length == 0) return
+
+
+    //     const parentNode = queue.shift()
+    //     if (!parentNode) return
+
+
+    //     if (parentNode.left) {
+    //         queue.push(parentNode.left)
+    //     } else {
+    //         parentNode.left = new Node(newData)
+    //         return
+    //     }
+
+
+    //     if (parentNode.right) {
+    //         queue.push(parentNode.right)
+    //     } else {
+    //         parentNode.right = new Node(newData)
+    //         return
+    //     }
+
+
+    //     this.addNodeFpl(newData, queue)
+    // }
 
 
 }
