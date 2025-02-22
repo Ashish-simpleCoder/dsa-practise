@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import { BT, Node } from "./index.test";
 
 
-// Level Order Traversal
+// Level Order Traversal  / Breadth First Traversal
 describe("bfs traversal", () => {
 
     const tree = new BT()

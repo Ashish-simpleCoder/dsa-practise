@@ -401,6 +401,23 @@ export class BT {
         return height
     }
 
+
+    // types of binary tree
+    isFullBinaryTree(node = this.root) {
+        if (!node) return true
+
+        if (!node.left && !node.right) {
+            return true
+        }
+
+        if (node.left && node.right) {
+            return this.isFullBinaryTree(node.left) && this.isFullBinaryTree(node.right)
+        }
+
+        return false
+    }
+
+
 }
 
 
